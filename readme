@@ -1,0 +1,18 @@
+npm init -y for installing packages i.e package.json
+npm i express ejs mongoose
+
+
+
+--> JWT (Json web token) and Bcrypt for authentication
+--> We use tailwind and flowbite for register page building
+
+
+------------------------------------------
+
+Password ko hum agar text format me rakhengey toh data compromise hone ke chances hain
+We can convert the password in hash format using Bcrypt
+
+------------------------------------------
+
+Password match karne par generate karte hain token JWT(json web token)
+npm i jsonwebtoken karna padega
