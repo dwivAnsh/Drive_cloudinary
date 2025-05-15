@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
       rel="stylesheet"
     />
+    <title>File Upload</title>
   </head>
-  <body>
-    <h1 class="text-3xl font-bold underline">
-      <button onclick="showPopUp()">
-        <main
-          class="p-10 bg-gray-100 dark:bg-gray-800 h-screen w-screen relative"
-        >
-          <div
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit"
-          >
-            Upload file
-          </div>
-        </main>
-      </button>
+  <body class="bg-gray-100 dark:bg-gray-800 h-screen w-screen">
+    <!-- Main Page Content -->
+    <main class="p-10 relative">
+      <!-- Upload Button -->
       <div
-        class="pop backdrop-blur hidden fixed top-0 left-0 w-full h-full flex items-center justify-center"
+        onclick="showPopUp()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-fit cursor-pointer"
       >
-        <form action="/upload-file" method="post" enctype="multipart/form-data">
-          <div class="flex items-center justify-center w-96">
+        Upload File
+      </div>
+
+      <!-- Upload Popup -->
+      <div
+        class="pop backdrop-blur hidden fixed top-0 left-0 w-full h-full flex items-center justify-center z-50"
+      >
+        <form
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+          class="relative bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg"
+        >
+          <div class="flex items-center justify-center w-96 mb-6">
             <label
               for="dropzone-file"
               class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              style="cursor: pointer;"
             >
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
@@ -55,29 +61,37 @@
                   SVG, PNG, JPG or GIF (MAX. 800x400px)
                 </p>
               </div>
+              <!-- file input must be hidden but clickable via label -->
               <input
                 id="dropzone-file"
                 type="file"
-                class="hidden"
                 name="file"
+                class="hidden"
+                required
               />
             </label>
           </div>
+
+          <!-- Submit Button -->
           <button
             type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded absolute bottom-1/4 left-1/2 translate-x-[-50%]"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded w-full"
           >
             Upload
           </button>
+
+          <!-- Close Button -->
+          <button
+            type="button"
+            onclick="hidePopUp()"
+            class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+          >
+            ✕
+          </button>
         </form>
-        <button
-          onclick="hidePopUp()"
-          class="absolute top-[2.8vw] left-[8vw] px-8 py-2 translate-x-[-50%] text-white rounded bg-red-500"
-        >
-          Close
-        </button>
       </div>
-    </h1>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script>
       function showPopUp() {
@@ -87,6 +101,14 @@
       function hidePopUp() {
         document.querySelector(".pop").style.display = "none";
       }
+
+      // OPTIONAL: Show filename when user selects file
+      const fileInput = document.getElementById("dropzone-file");
+      fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) {
+          alert(`Selected file: ${fileInput.files[0].name}`);
+        }
+      });
     </script>
   </body>
 </html>
