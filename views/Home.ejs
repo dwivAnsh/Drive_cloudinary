@@ -8,6 +8,10 @@
       href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <title>File Upload</title>
   </head>
   <body class="bg-gray-100 dark:bg-gray-800 h-screen w-screen">
@@ -35,7 +39,7 @@
             <label
               for="dropzone-file"
               class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              style="cursor: pointer;"
+              style="cursor: pointer"
             >
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
@@ -89,6 +93,23 @@
             ✕
           </button>
         </form>
+      </div>
+
+      <div class="files mt-3 flex flex-col gap-2">
+        <% files.forEach((file) => { %>
+        <div
+          class="p-2 rounded-md bg-gray-300 cursor-pointer flex justify-between"
+        >
+          <h1><%= file.originalName %></h1>
+          <a
+            href="/download/<%= file._id %>"
+            download="<%= file.originalName %>"
+            class="text-blue-600 hover:text-blue-800 font-lg"
+          >
+            <i class="ri-download-line"></i>
+          </a>
+        </div>
+        <% }) %>
       </div>
     </main>
 
